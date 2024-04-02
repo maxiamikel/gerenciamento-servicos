@@ -40,13 +40,13 @@ public class TecnicoService {
     }
 
     private void validateIfExistCpfAndEmail(TecnicoDTO objDto) {
-        Optional<Pessoa> obj = pessoaRepository.findByEmail(objDto.getEmail());
+        Optional<Pessoa> obj = pessoaRepository.findByCpf(objDto.getCpf());
        
         if(obj.isPresent() && obj.get().getId() != objDto.getId()){
             throw new DataIntegrityViolationException("O CPF já esta cadastrado no sistema");
         }
 
-        obj = pessoaRepository.findByCpf(objDto.getCpf());
+        obj =  pessoaRepository.findByEmail(objDto.getEmail());
         if(obj.isPresent() && obj.get().getId() != objDto.getId()){
             throw new DataIntegrityViolationException("O email já esta cadastrado no sistema");
         }
