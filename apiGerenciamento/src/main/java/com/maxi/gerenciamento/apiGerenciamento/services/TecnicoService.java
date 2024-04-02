@@ -14,6 +14,8 @@ import com.maxi.gerenciamento.apiGerenciamento.repositories.TecnicoRepository;
 import com.maxi.gerenciamento.apiGerenciamento.services.exceptions.DataIntegrityViolationException;
 import com.maxi.gerenciamento.apiGerenciamento.services.exceptions.ObjectNotFoundException;
 
+import jakarta.validation.Valid;
+
 @Service
 public class TecnicoService {
     
@@ -50,6 +52,22 @@ public class TecnicoService {
         if(obj.isPresent() && obj.get().getId() != objDto.getId()){
             throw new DataIntegrityViolationException("O email já esta cadastrado no sistema");
         }
+    }
+
+    public Tecnico update(Integer id, @Valid TecnicoDTO objDTO) {
+        Tecnico tecnicoDB = findById(id);
+        validateIfExistCpfAndEmail(objDTO);
+        tecnicoDB = new Tecnico(objDTO);
+        return tecnicoRepository.save(tecnicoDB);
+    }
+
+    public void delete(Integer id) {
+       Tecnico tecnicoDB = findById(id);
+    
+       if(tecnicoDB.getAtendimentos().size() > 0){
+         throw new DataIntegrityViolationException("Tecnico possui dependencia no seu nome, não pode ser deletado");
+       }
+       tecnicoRepository.deleteById(id);
     }
 
 }

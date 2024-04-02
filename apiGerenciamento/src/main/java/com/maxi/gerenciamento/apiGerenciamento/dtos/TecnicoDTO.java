@@ -6,17 +6,32 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.maxi.gerenciamento.apiGerenciamento.domains.Tecnico;
 import com.maxi.gerenciamento.apiGerenciamento.domains.enums.Perfil;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public class TecnicoDTO implements Serializable{
     private static final long serialVersionUID=1L;
 
     protected Integer id;
+    @NotNull(message = "O nome é requerido")
+    @NotEmpty(message="O nome não pode ser vazio")
     protected String nome;
+    @NotNull(message = "O CPF é requerido")
+    @NotEmpty(message="O CPF não pode ser vazio")
+    @CPF(message = "CPF inválido")
     protected String cpf;
+    @NotNull(message = "O email é requerido")
+    @Email(message = "O email não é válido")
     protected String email;
+    @NotNull(message = "A senha é requerida")
+    @NotEmpty(message="A senha não pode ser vazia")
     protected String senha;
     protected Set<Integer> perfils = new HashSet<>();
 
