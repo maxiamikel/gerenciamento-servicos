@@ -3,6 +3,7 @@ package com.maxi.gerenciamento.apiGerenciamento.domains;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.maxi.gerenciamento.apiGerenciamento.domains.enums.Perfil;
 
 import jakarta.persistence.Entity;
@@ -14,6 +15,7 @@ import jakarta.persistence.Table;
 public class Tecnico extends Pessoa{
     private static final long serialVersionUID=1L;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "tecnico")
     private List<Atendimento> atendimentos = new ArrayList<>() ;
 
