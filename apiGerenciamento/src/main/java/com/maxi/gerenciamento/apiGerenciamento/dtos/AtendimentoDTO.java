@@ -5,7 +5,8 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.maxi.gerenciamento.apiGerenciamento.domains.Atendimento;
-import com.maxi.gerenciamento.apiGerenciamento.domains.enums.Status;
+
+import jakarta.validation.constraints.NotNull;
 
 public class AtendimentoDTO implements Serializable{
 
@@ -17,12 +18,19 @@ public class AtendimentoDTO implements Serializable{
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataFechamento;
+
+    @NotNull(message = "A prioridade é requerida")
     private Integer prioridade;
-    private Status status;
+    @NotNull(message = "O status é requerido")
+    private Integer status;
+    @NotNull(message = "O titulo é requerido")
     private String titulo;
+    @NotNull(message = "a observação é requerida")
     private String observacao;
-    private Integer idTecnico;
-    private Integer idCliente;
+    @NotNull(message = "O técnico é requerido")
+    private Integer tecnico;
+    @NotNull(message = "O cliente é requerido")
+    private Integer cliente;
     private String nomeTecnico;
     private String nomeCliente;
 
@@ -35,11 +43,11 @@ public class AtendimentoDTO implements Serializable{
         this.dataAbertura = obj.getDataAbertura();
         this.dataFechamento = obj.getDataFechamento();
         this.prioridade = obj.getPrioridade().getCodigo();
-        this.status = obj.getStatus();
+        this.status = obj.getStatus().getCodigo();
         this.titulo = obj.getTitulo();
         this.observacao = obj.getObservacao();
-        this.idTecnico = obj.getTecnico().getId();
-        this.idCliente = obj.getCliente().getId();
+        this.tecnico = obj.getTecnico().getId();
+        this.cliente = obj.getCliente().getId();
         this.nomeTecnico = obj.getTecnico().getNome();
         this.nomeCliente = obj.getCliente().getNome();
     }
@@ -80,11 +88,11 @@ public class AtendimentoDTO implements Serializable{
         this.prioridade = prioridade;
     }
 
-    public Status getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -104,20 +112,20 @@ public class AtendimentoDTO implements Serializable{
         this.observacao = observacao;
     }
 
-    public Integer getIdTecnico() {
-        return idTecnico;
+    public Integer getTecnico() {
+        return tecnico;
     }
 
-    public void setIdTecnico(Integer idTecnico) {
-        this.idTecnico = idTecnico;
+    public void setTecnico(Integer idTecnico) {
+        this.tecnico = idTecnico;
     }
 
-    public Integer getIdCliente() {
-        return idCliente;
+    public Integer getCliente() {
+        return cliente;
     }
 
-    public void setIdCliente(Integer idCliente) {
-        this.idCliente = idCliente;
+    public void setCliente(Integer idCliente) {
+        this.cliente = idCliente;
     }
 
     public String getNomeTecnico() {
