@@ -31,7 +31,7 @@ public enum Status {
             }
         }
 
-        throw new IllegalArgumentException("O status informado é invalido");
+        throw new IllegalArgumentException("O status informado é invalido ou não existe no sistema");
     }
     
 }

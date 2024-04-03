@@ -30,6 +30,6 @@ public enum Prioridade {
                 return p;
             }
         }
-        throw new IllegalArgumentException("A prioridade é inválida");
+        throw new IllegalArgumentException("A prioridade é inválida ou não existe no sistema");
     }
 }
